@@ -46,6 +46,8 @@
 .imgContainer {
   flex: 1;
   position: relative;
+  height: 450px;
+  margin-top: -80px;
 }
 
 @media (max-width: 1024px) {

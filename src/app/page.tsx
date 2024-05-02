@@ -5,7 +5,7 @@ import Image from "next/image";
 export default function Home() {
   return <div className={styles.container}>
     <div className={styles.textContainer}>
-      <h1>Creative Thoughts</h1>
+      <h1>Innovative Ideas</h1>
       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure totam ea ut nihil! Expedita ducimus obcaecati quidem est dolores, libero quibusdam suscipit magni ad, cupiditate voluptate, placeat reprehenderit maxime perferendis!</p>
       <div className={styles.buttons}>
         <button className={styles.button}>Learn More</button>
@@ -16,7 +16,7 @@ export default function Home() {
       </div>
     </div>
     <div className={styles.imgContainer}>
-
+      <Image src="/hero.gif" alt="Hero" fill className={styles.heroImg}/>
     </div>
   </div>;
 }
