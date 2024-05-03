@@ -1,14 +1,50 @@
-import Image from "next/image"
-import styles from "@/app/about/about.module.css";
+import Image from "next/image";
+import styles from "./about.module.css";
 
-function About() {
+export const metadata = {
+  title: "About",
+  description: "We create digital ideas that are bigger, bolder, braver and better. We believe in good ideas flexibility and precission We’re world’s Our Special Team best consulting & finance solution provider. Wide range of web and software development services.",
+};
+
+
+const AboutPage = () => {
+
+  // console.log("lets check where it works")
   return (
-    <div>
-        <div className={styles.imgContainer}>
-            <Image src="/about.png" alt="About us" width={0} height={0} sizes="100vw" className={styles.img}/>
+    <div className={styles.container}>
+      <div className={styles.textContainer}>
+        <h2 className={styles.subtitle}>About Blog</h2>
+        <h1 className={styles.title}>
+          We create digital ideas that are bigger, bolder, braver and better.
+        </h1>
+        <p className={styles.desc}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum est suscipit labore quasi, illo sint itaque iste placeat at, culpa, quod sapiente! Repellat aut pariatur reiciendis cumque voluptatum earum quaerat.
+        </p>
+        <div className={styles.boxes}>
+          <div className={styles.box}>
+            <h1>10 K+</h1>
+            <p>Year of experience</p>
+          </div>
+          <div className={styles.box}>
+            <h1>10 K+</h1>
+            <p>Year of experience</p>
+          </div>
+          <div className={styles.box}>
+            <h1>10 K+</h1>
+            <p>Year of experience</p>
+          </div>
         </div>
+      </div>
+      <div className={styles.imgContainer}>
+        <Image
+          src="/about.png"
+          alt="About Image"
+          fill
+          className={styles.img}
+        />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default About
+export default AboutPage;
