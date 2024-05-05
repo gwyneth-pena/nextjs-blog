@@ -7,14 +7,14 @@ function PostCard({post}:any) {
     <div className={styles.container}>
         <div className={styles.top}>
             <div className={styles.imgContainer}>
-                <Image src="/about.png" alt="Post" fill className={styles.img}/>
+                <Image src={post.img?post.img:'/about.png'} alt={post.title} fill className={styles.img}/>
             </div>
             <span className={styles.date}>03.02.2024</span>
         </div>
         <div className={styles.bottom}>
             <h1 className={styles.title}>{post.title}</h1>
-            <p className={styles.desc}>{post.body}</p>
-            <Link href={`/blog/${post.id}`}>READ MORE</Link>
+            <p className={styles.desc}>{post.desc}</p>
+            <Link href={`/blog/${post.slug}`}>READ MORE</Link>
         </div>
     </div>
   )

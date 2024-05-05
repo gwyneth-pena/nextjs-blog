@@ -1,4 +1,3 @@
-import { FormData } from "@/app/contact/page";
 import nodemailer from "nodemailer";
 
 type EmailPayload = {

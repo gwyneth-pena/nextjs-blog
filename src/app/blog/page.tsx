@@ -1,18 +1,11 @@
 
 import styles from '@/app/blog/blog.module.css';
 import PostCard from '@/components/postCard/PostCard';
+import { getPost } from '@/utils/postService';
 
-async function getData(){
-  const res = await fetch('https://jsonplaceholder.typicode.com/posts', {next: {revalidate: 3600}});
-
-  if(!res.ok){
-    throw new Error("Something went wrong.");
-  }
-  return await res.json();
-}
 
 async function Blog() {
-  const posts:any = await getData();
+  const posts:any = await getPost();
 
   return (
     <div className={styles.container}>
@@ -23,8 +16,8 @@ async function Blog() {
         posts.length>0 &&
         posts.map((post:any)=>{
           return(     
-          <div className={styles.post}>
-            <PostCard post={post} />
+          <div key={post.id} className={styles.post}>
+            <PostCard post={post} key={post.id}/>
           </div>);
         })
       }

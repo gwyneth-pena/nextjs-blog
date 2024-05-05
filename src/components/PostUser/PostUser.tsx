@@ -1,26 +1,18 @@
 import styles from "@/components/PostUser/postuser.module.css";
+import { getUser } from "@/utils/userService";
 import Image from "next/image";
 
-const getData = async ({userId}:any) => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}` ,{cache:"no-store"});
 
-  if (!res.ok) {
-    throw new Error("Something went wrong");
-  }
+async function PostUser({userId}:any) {
 
-  return res.json();
-};
-
-async function PostUser(userId:string) {
-
-  const user:any = await getData(userId);
+  const user:any = await getUser(userId);
 
   return (
     <div className={styles.container}>
           <Image
             className={styles.avatar}
             src={user.img ? user.img : "/noavatar.png"}
-            alt=""
+            alt={user.username}
             width={50}
             height={50}
           />
