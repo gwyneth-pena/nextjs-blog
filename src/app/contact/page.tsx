@@ -1,6 +1,5 @@
 'use client'
 import styles from "@/app/contact/contact.module.css";
-import { sendEmail } from "@/utils/sendEmail";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { Circles } from "react-loader-spinner";

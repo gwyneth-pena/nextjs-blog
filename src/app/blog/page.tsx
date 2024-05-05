@@ -4,6 +4,11 @@ import PostCard from '@/components/postCard/PostCard';
 import { getPost } from '@/utils/postService';
 
 
+export const metadata = {
+  title: "Blog",
+  description: "",
+};
+
 async function Blog() {
   const posts:any = await getPost();
 

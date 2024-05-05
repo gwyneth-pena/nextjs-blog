@@ -5,6 +5,14 @@ import Image from "next/image";
 import { Suspense } from "react";
 
 
+export const generateMetadata = async ({params}:any)=>{
+  const post:any = await getPost(params.slug);
+  return {
+    title: post[0].title,
+    description: post[0].desc
+  }
+};
+
 
 async function SinglePost({params}:any) {
   const post:any = await getPost(params.slug);
