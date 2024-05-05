@@ -1,6 +1,8 @@
 import styles from "@/app/blog/[slug]/singlepost.module.css";
 import Image from "next/image";
 
+
+
 function SinglePost() {
   return (
     <div className={styles.container}>

@@ -2,7 +2,7 @@
 
 function Loading() {
   return (
-    <div>Loading</div>
+    <div style={{fontSize:'3rem', fontWeight:'bold', textAlign:'center'}}>Loading</div>
   )
 }
 
