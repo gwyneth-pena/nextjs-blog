@@ -5,6 +5,8 @@ import styles from "./links.module.css";
 import Image from "next/image";
 import Link from "next/link";
 import NavLink from "./NavLink/NavLink";
+import { auth } from "@/utils/auth";
+import { handleLogout } from "@/utils/authActions";
 
 interface Link{
     title: string,
@@ -30,11 +32,11 @@ const links: Link[]= [
   },
 ];
 
-const Links = ({}) => {
+const Links = async ({}) => {
 
   const [open, setOpen] = useState(false);
 
-  let session = true;
+  let session = await auth();
   let isAdmin = true;
 
 
@@ -48,7 +50,9 @@ const Links = ({}) => {
             session ? 
              <>
                 {isAdmin &&  <NavLink title="Admin" path="/admin" key={"Login"}></NavLink>}
-                <button className={styles.logout}>Logout</button>
+                <form action={handleLogout}>
+                  <button type="submit" className={styles.logout}>Logout</button>
+                </form>
              </>
             :
             <NavLink title="Login" path="/login" key={"Login"}></NavLink>
