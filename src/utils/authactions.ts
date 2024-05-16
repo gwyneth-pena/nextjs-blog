@@ -53,11 +53,16 @@ export const register = async(previousState:any, data: any)=>{
     }
 }
 
-export const handleLoginWithCreds = async(data:any)=>{
+export const handleLoginWithCreds = async(previousState:any,data:any)=>{
     try {
         const { username, password } = Object.fromEntries(data);
         await signIn("credentials",{username, password});
-    } catch (error) {
+        return {success: true};
+    } catch (error:any) {
+        if (error.message.includes("NEXT_REDIRECT")) {
+            throw error;
+        }
+
         return {error: 'Invalid credentials.'};
     }
 };

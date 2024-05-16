@@ -2,34 +2,76 @@
 
 import { revalidatePath } from "next/cache";
 import { connectToDB } from "./connectToDB";
-import { Post } from "./models";
-import { ErrorMsgs } from "./errorEnums";
+import { Post, User } from "./models";
 
-export const addPost = async (formData:any)=>{
-    try{
+export const addPost = async (previousState:any,formData:any) =>{
+    const { title, desc, slug, userId } = Object.fromEntries(formData);
 
-        connectToDB();
-        const data = Object.fromEntries(formData);
-        const post = new Post({...data});
-        
-        revalidatePath("/blog");
+  try {
+    connectToDB();
+    const newPost = new Post({
+      title,
+      desc,
+      slug,
+      userId,
+    });
 
-    }catch(err){
-        console.log(err);
-        return {error: ErrorMsgs.RANDOM_ERROR};
-    }
+    await newPost.save();
+
+    revalidatePath("/blog");
+    revalidatePath("/admin");
+  } catch (err) {
+    console.log(err);
+    return { error: "Something went wrong!" };
+  }
 };
 
-export const deletePost = async (formData:any)=>{
-    try{
+export const deletePost = async (formData:any) => {
+  const { id } = Object.fromEntries(formData);
 
-        connectToDB();
-        const data = Object.fromEntries(formData);
-        await Post.findByIdAndDelete(data);
-        revalidatePath("/blog");
+  try {
+    connectToDB();
 
-    }catch(err){
-        console.log(err);
-        return {error: ErrorMsgs.RANDOM_ERROR};
-    }
+    await Post.findByIdAndDelete(id);
+    revalidatePath("/blog");
+    revalidatePath("/admin");
+  } catch (err) {
+    console.log(err);
+    return { error: "Something went wrong!" };
+  }
+};
+
+export const addUser = async (prevState:any,formData:any) => {
+  const { username, email, password, img } = Object.fromEntries(formData);
+
+  try {
+    connectToDB();
+    const newUser = new User({
+      username,
+      email,
+      password,
+      img,
+    });
+
+    await newUser.save();
+    revalidatePath("/admin");
+  } catch (err) {
+    console.log(err);
+    return { error: "Something went wrong!" };
+  }
+};
+
+export const deleteUser = async (formData:any) => {
+  const { id } = Object.fromEntries(formData);
+
+  try {
+    connectToDB();
+
+    await Post.deleteMany({ userId: id });
+    await User.findByIdAndDelete(id);
+    revalidatePath("/admin");
+  } catch (err) {
+    console.log(err);
+    return { error: "Something went wrong!" };
+  }
 };

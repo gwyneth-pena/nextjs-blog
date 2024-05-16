@@ -10,9 +10,9 @@ const LoginForm = () => {
 
   return (
     <form className={styles.form} action={formAction}>
-      <input type="text" placeholder="Username" name="username" />
-      <input type="password" placeholder="Password" name="password" />
-      <button>Login</button>
+      <input type="text" placeholder="Username" name="username" required/>
+      <input type="password" placeholder="Password" name="password" required/>
+      <button type="submit">Login</button>
       {state?.error}
       <Link href="/register">
         {"Don't have an account?"} <b>Register</b>

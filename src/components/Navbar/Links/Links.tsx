@@ -36,8 +36,8 @@ const Links = async ({}) => {
 
   const [open, setOpen] = useState(false);
 
-  let session = await auth();
-  let isAdmin = true;
+  let session:any = await auth();
+  let isAdmin = session?.user?.isAdmin;
 
 
   return (

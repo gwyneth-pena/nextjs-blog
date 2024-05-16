@@ -5,6 +5,7 @@ import { connectToDB } from "./connectToDB";
 import { User } from "./models";
 import bcrypt from "bcryptjs";
 import { ErrorMsgs } from "./errorEnums";
+import { authConfig } from "./auth.config";
 
 
 const login = async (credentials: any)=>{
@@ -30,6 +31,7 @@ const login = async (credentials: any)=>{
 }
 
 export const { handlers:{GET,POST}, auth, signIn, signOut } = NextAuth({ 
+    ...authConfig,
     providers: [ 
         GitHub({
             clientId: process.env.NEXT_PUBLIC_GITHUB_ID||'',
@@ -39,8 +41,6 @@ export const { handlers:{GET,POST}, auth, signIn, signOut } = NextAuth({
             async authorize(credentials: any){
                 try {
                     let user = await login(credentials);
-
-
                     return user;
                 } catch (error) {
                     return null;
@@ -48,31 +48,32 @@ export const { handlers:{GET,POST}, auth, signIn, signOut } = NextAuth({
             }
         })
     ],
-    // callbacks: {
-    //     async signIn(params:{user: any, account: Account | null, profile?: Profile | undefined}) {
-    //         if(params.account?.provider=='github'){
-    //             connectToDB();
-    //             try {
-    //                 const user:any = await User.findOne({email: params.user?.email});
+    callbacks: {
+        async signIn(params:{user: any, account: Account | null, profile?: Profile | undefined}) {
+            if(params.account?.provider=='github'){
+                connectToDB();
+                try {
+                    const user:any = await User.findOne({email: params.user?.email});
 
-    //                 if(!user){
-    //                     const newUser = new User({
-    //                         username: params.profile?.login,
-    //                         email: params.profile?.email,
-    //                         img: params.profile?.avatar_url
-    //                     });
+                    if(!user){
+                        const newUser = new User({
+                            username: params.profile?.login,
+                            email: params.profile?.email,
+                            img: params.profile?.avatar_url
+                        });
 
-    //                     await newUser.save();
-    //                 }
+                        await newUser.save();
+                    }
 
-    //                 return true;
-    //             } catch (error) {
-    //                 console.log(error);
-    //                 return false;
-    //             }
-    //         }
-    //         return false;
-    //     },
-    // } 
+                    return true;
+                } catch (error) {
+                    console.log(error);
+                    return false;
+                }
+            }
+            return true;
+        },
+        ...authConfig.callbacks
+    } 
 
 })
