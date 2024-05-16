@@ -9,7 +9,7 @@ import { Suspense } from "react";
 export const generateMetadata = async ({params}:any)=>{
   const post:any = await getPost(params.slug);
   let  metadata = {
-    title: "Something went wrong",
+    title: "",
     description: ""
   };
 

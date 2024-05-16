@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { connectToDB } from "./connectToDB";
 import { Post } from "./models";
+import { ErrorMsgs } from "./errorEnums";
 
 export const addPost = async (formData:any)=>{
     try{
@@ -15,7 +16,7 @@ export const addPost = async (formData:any)=>{
 
     }catch(err){
         console.log(err);
-        return {error: "Something went wrong."};
+        return {error: ErrorMsgs.RANDOM_ERROR};
     }
 };
 
@@ -29,6 +30,6 @@ export const deletePost = async (formData:any)=>{
 
     }catch(err){
         console.log(err);
-        return {error: "Something went wrong."};
+        return {error: ErrorMsgs.RANDOM_ERROR};
     }
 };
